@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pg = require("../database/db");
+const pg = require("../utils/db");
 
 router
   .route("/")
