@@ -1,0 +1,14 @@
+{
+  "name": "paperforpeople",
+  "version": "1.0.0",
+  "description": "FinalProject 16-10-2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca, Maxim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
