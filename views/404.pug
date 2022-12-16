@@ -1,18 +1,20 @@
 doctype html
 html
   head
-    title 404 Page Not Found
+    title 404 Error
     style.
       body {
         font-family: sans-serif;
-        text-align: center;
-        background-color: #f0f0f0;
+        height:95vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction:column;
       }
-      h1 {
-        font-size: 2em;
-        color: Black;
+            h1 {
+        font-size: 36px;
       }
   body
-    h1 404 Page Not Found
-    p The page you are looking for could not be found.
-    a(href='/') Back to Home
+    h1 404 Error
+    p The requested page was not found.
+    a.button(href='/') Home
