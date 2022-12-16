@@ -21,7 +21,7 @@ app.use(LogRoute)
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use('view engine','pug') 
+
 // app.use(logError)
 // app.use(returnError)
 
