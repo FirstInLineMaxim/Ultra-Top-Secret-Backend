@@ -17,7 +17,6 @@ router
       return res.json({ message: "Logged in", token: token });
     }
     res.send("Wrong Password!");
-  })
-
+  });
 
 module.exports = router;

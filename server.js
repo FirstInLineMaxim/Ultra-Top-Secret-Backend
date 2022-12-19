@@ -18,6 +18,7 @@ const Signup = require("./Routes/Signup");
 const Users = require("./Routes/Users");
 
 app.set("view engine", "pug");
+
 //MiddleWares
 app.use(LogRoute);
 app.use(cors());
@@ -35,7 +36,7 @@ app.use("/users", Users);
 app.get("*", function (req, res) {
   res.status(404).render("404");
 });
- 
+
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port http://localhost:${process.env.PORT}`);
 });
