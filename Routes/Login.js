@@ -2,16 +2,22 @@ const express = require("express");
 const router = express.Router();
 const { comparePassword } = require("../utils/bcrypt");
 const { retriveUserInfo } = require("../utils/checkUser");
+const jwt = require("jsonwebtoken");
 router
   .route("/")
-  .get(retriveUserInfo, comparePassword, (req, res) => {
+  .get((req, res) => {
+    res.json("Login Post Placeholder");
+  })
+  .post(retriveUserInfo, comparePassword, (req, res) => {
     //gets the valid from the checkpassword
-    const { valid } = req.body;
-    if (valid) return res.send("Logged in");
+    const { valid, id } = req.body;
+    //Return JWT token on success
+    if (valid) {
+      const token = jwt.sign({ userId: id }, process.env.JWT_SECRET);
+      return res.json({ message: "Logged in", token: token });
+    }
     res.send("Wrong Password!");
   })
-  .post((req, res) => {
-    res.json("Login Post Placeholder");
-  });
+
 
 module.exports = router;
