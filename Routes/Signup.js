@@ -4,13 +4,14 @@ const pg = require("../utils/db");
 
 //middelware
 const { cryptPassword } = require("../utils/bcrypt");
+const {userInfo} = require('../utils/checkExsisting')
 
 router
   .route("/")
   .get((req, res) => {
     res.json("Signup Placeholder");
   })
-  .post(cryptPassword, async (req, res) => {
+  .post(userInfo,cryptPassword, async (req, res) => {
     const {
       lastName,
       firstName,

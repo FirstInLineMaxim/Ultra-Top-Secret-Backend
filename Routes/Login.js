@@ -16,7 +16,7 @@ router
       const token = jwt.sign({ userId: id }, process.env.JWT_SECRET);
       return res.json({ message: "Logged in", token: token });
     }
-    res.send("Wrong Password!");
+    res.json({message: "Wrong Password!"});
   });
 
 module.exports = router;
