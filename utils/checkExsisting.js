@@ -3,7 +3,6 @@ const pg = require("../utils/db");
 // Checks email in database and retrives the password
 async function userInfo(req, res, next) {
   console.log("Checking User");
-  console.log(req)
   const {
     lastName,
     firstName,
