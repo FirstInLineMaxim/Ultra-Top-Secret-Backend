@@ -14,7 +14,7 @@ async function userInfo(req, res, next) {
   if (!email || !password || !lastName || !firstName || !languages)
     return res
       .status(400)
-      .json({ error: "You need to Provide all the Information" });
+      .json({ message: "You need to Provide all the Information" });
 
   const result = await pg("Users")
     .where("email", email)
@@ -24,7 +24,7 @@ async function userInfo(req, res, next) {
   if (result.length !== 0)
     return res
       .status(303)
-      .json({ error: "User with that Email already Exist" });
+      .json({ message: "User with that Email already Exist" });
 
   next();
 }
