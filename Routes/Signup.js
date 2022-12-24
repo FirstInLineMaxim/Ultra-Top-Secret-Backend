@@ -35,7 +35,8 @@ router
       skills: skills,
     };
 
-    res.json(await pg("Users").insert(values).returning("*"));
+    await pg("Users").insert(values)
+    res.status(201).json({message:"Account Created"})
     res.end();
   })
   .delete(async (req, res) => {

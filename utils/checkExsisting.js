@@ -8,10 +8,10 @@ async function userInfo(req, res, next) {
     firstName,
     email,
     password,
-    languages,
+    language,
   } = req.body;
   //Checks if all Values are Provided
-  if (!email || !password || !lastName || !firstName || !languages)
+  if (!email || !password || !lastName || !firstName || !language)
     return res
       .status(400)
       .json({ message: "You need to Provide all the Information" });
