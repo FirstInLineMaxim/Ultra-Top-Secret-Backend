@@ -11,4 +11,9 @@ router
   .put((req, res) => {})
   .delete((req, res) => {})
 
+  router
+  .route('/all')
+  .get(async (req, res) => {
+    res.json(await pg("Review").select("*"));
+  })
 module.exports = router;

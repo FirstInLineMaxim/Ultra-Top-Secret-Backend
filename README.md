@@ -51,14 +51,9 @@ User profile:
 | `/exitpoint`     | TournamentListPage   | user only `<PrivateRoute>` | Shows all exit points in a list                              |
 | `/exitpoint/add` | TournamentListPage   | user only `<PrivateRoute>` | Edits a exit points                                          |
 | `/exitpoint/:id` | TournamentDetailPage | user only `<PrivateRoute>` | Details of a exit points to edit                             |
-| `/exitpoint/:id` | n/a                  | user only `<PrivateRoute>` | Delete exit points                                           |
-|                  |                      |                            |                                                              |
-|                  |                      |                            |                                                              |
-|                  |                      |                            |                                                              |
-|                  |                      |                            |                                                              |
-|                  |                      |                            |                                                              |
-|                  |                      |                            |                                                              |
-
+| `/exitpoint/:id` | n/a                  | user only `<PrivateRoute>` | Delete exit Task                                           |
+|`/Task/`|
+|`/Task/all`| 
 ## Components
 
 - LoginPage

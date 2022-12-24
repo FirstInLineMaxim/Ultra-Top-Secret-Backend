@@ -23,6 +23,7 @@ const Documents = require('./Routes/Documents')
 const Translation = require('./Routes/Translation')
 const Review = require('./Routes/Review')
 const Task = require('./Routes/Task')
+const File = require('./Routes/file')
 
 app.set("view engine", "pug");
 
@@ -45,6 +46,7 @@ app.use("/document", Documents);
 app.use("/translation", Translation);
 app.use("/review", Review);
 app.use("/task", Task);
+app.use("/file", File);
 
 
 app.get("*", function (req, res) {
