@@ -9,14 +9,17 @@ router
     res.json("Login Post Placeholder");
   })
   .post(retriveUserInfo, comparePassword, (req, res) => {
+    console.log("Login");
     //gets the valid from the checkpassword
-    const { valid, id } = req.body;
+    const { valid, user } = req.body;
     //Return JWT token on success
     if (valid) {
-      const token = jwt.sign({ userId: id }, process.env.JWT_SECRET);
-      return res.json({ message: "Logged in", token: token });
+      const token = jwt.sign({ userId: user }, process.env.JWT_SECRET, {
+        expiresIn: "1800s",
+      });
+      return res.json({ message: "Logged In", token: token });
     }
-    res.json({message: "Wrong Password!"});
+    res.json({ message: "Wrong Password!" });
   });
 
 module.exports = router;

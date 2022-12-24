@@ -12,10 +12,17 @@ const {
   returnError,
   logError,
 } = require("./Controler/ErrorHandler");
+
+//Route Handler
 const Home = require("./Routes/Home");
 const Login = require("./Routes/Login");
 const Signup = require("./Routes/Signup");
 const Users = require("./Routes/Users");
+const Call = require('./Routes/Call')
+const Documents = require('./Routes/Documents')
+const Translation = require('./Routes/Translation')
+const Review = require('./Routes/Review')
+const Task = require('./Routes/Task')
 
 app.set("view engine", "pug");
 
@@ -33,6 +40,13 @@ app.use("/", Home);
 app.use("/login", Login);
 app.use("/signup", Signup);
 app.use("/users", Users);
+app.use("/call", Call);
+app.use("/document", Documents);
+app.use("/translation", Translation);
+app.use("/review", Review);
+app.use("/task", Task);
+
+
 app.get("*", function (req, res) {
   res.status(404).render("404");
 });
