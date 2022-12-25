@@ -12,6 +12,7 @@ router
     res.json("Signup Placeholder");
   })
   .post(userInfo,cryptPassword, async (req, res) => {
+    //Our information from the Signup page 
     const {
       lastName,
       firstName,
@@ -23,7 +24,7 @@ router
       skills,
       image,
     } = req.body;
-    //cryptPassword takes 1 argument a string and returns a hash
+    //Values for the database
     const values = {
       lastName: lastName,
       firstName: firstName,
