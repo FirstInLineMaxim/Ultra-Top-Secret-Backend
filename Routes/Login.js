@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { comparePassword } = require("../utils/bcrypt");
-const { retriveUserInfo } = require("../utils/checkUser");
+const { loginUserInfo } = require("../utils/checkUser");
 const jwt = require("jsonwebtoken");
 router
   .route("/")
   .get((req, res) => {
     res.json("Login Post Placeholder");
   })
-  .post(retriveUserInfo, comparePassword, (req, res) => {
+  .post(loginUserInfo, comparePassword, (req, res) => {
     console.log("Login");
     //gets the valid from the checkpassword
     const { valid, user } = req.body;

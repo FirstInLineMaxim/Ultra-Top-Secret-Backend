@@ -19,7 +19,7 @@ router
       password,
       address,
       phonenumber,
-      languages,
+      language,
       skills,
       image,
     } = req.body;
@@ -31,7 +31,7 @@ router
       password: password,
       address: address,
       phonenumber: phonenumber,
-      languages: languages,
+      languages: language,
       skills: skills,
     };
 
