@@ -15,7 +15,6 @@ router
     //Return JWT token on success
     if (valid) {
       const token = jwt.sign({ userId: user }, process.env.JWT_SECRET, {
-        expiresIn: "1800s",
       });
       return res.json({ message: "Logged In", token: token });
     }

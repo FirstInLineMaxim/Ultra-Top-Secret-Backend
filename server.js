@@ -4,7 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
+const {accessHandler} = require('./utils/accessHandler')
 //Modules
 const LogRoute = require("./Controler/LogRoute");
 const {
@@ -24,23 +24,31 @@ const Translation = require('./Routes/Translation')
 const Review = require('./Routes/Review')
 const Task = require('./Routes/Task')
 const File = require('./Routes/file')
-
+const authUser = require('./utils/authUser')
 app.set("view engine", "pug");
 
 //MiddleWares
+app.options("/*", function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.sendStatus(200);
+});
 app.use(LogRoute);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 // app.use(logError)
 // app.use(returnError)
 
 //Routes
+
 app.use("/", Home);
 app.use("/login", Login);
 app.use("/signup", Signup);
-app.use("/users", Users);
+app.use("/user",authUser, Users);
 app.use("/call", Call);
 app.use("/document", Documents);
 app.use("/translation", Translation);
@@ -56,3 +64,5 @@ app.get("*", function (req, res) {
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port http://localhost:${process.env.PORT}`);
 });
+
+
