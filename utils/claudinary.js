@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,14 +7,16 @@ cloudinary.config({
 });
 
 function upload(imagePath) {
-  cloudinary.uploader.upload(
+  return cloudinary.uploader.upload(
     imagePath,
     { folder: "userImage" },
-    (error, result) => {
+    (result, error) => {
       if (error) {
+        console.log("error");
         console.error(error);
       } else {
-        console.log(result);
+        console.log("running");
+        return result;
       }
     }
   );
