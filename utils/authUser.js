@@ -21,7 +21,7 @@ function authUser(req, res, next) {
 		if (e instanceof jwt.JsonWebTokenError) {
 			// if the error thrown is because the JWT is unauthorized, return a 401 error
         console.log(e)
-			return res.status(401)
+			return res.status(401).end()
 		}
 		// otherwise, return a bad request error
         console.log("400")
