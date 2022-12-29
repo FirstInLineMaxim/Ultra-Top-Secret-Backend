@@ -25,7 +25,7 @@ const Review = require("./Routes/Review");
 const Task = require("./Routes/Task");
 const File = require("./Routes/file");
 const UploadRouter = require("./Routes/UploadRouter");
-
+const cookieHandler = require('./Routes/cookieHandler')
 const authUser = require("./utils/authUser");
 
 //ViewEngine for pug
@@ -64,6 +64,7 @@ app.use("/review", Review);
 app.use("/task", Task);
 app.use("/file", File);
 app.use("/upload", UploadRouter);
+app.use("/setCookies", cookieHandler);
 
 app.get("*", function (req, res) {
   res.status(404).render("404");
