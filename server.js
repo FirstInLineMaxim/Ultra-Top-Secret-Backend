@@ -26,12 +26,12 @@ const Task = require("./Routes/Task");
 const File = require("./Routes/file");
 const UploadRouter = require("./Routes/UploadRouter");
 const cookieHandler = require('./Routes/cookieHandler')
-const authUser = require("./utils/authUser");
 
 //ViewEngine for pug
 app.set("view engine", "pug");
 
 //MiddleWares
+const authUser = require("./utils/authUser");
 
 //Handeling the OPTIONS Request
 app.options("/*", function (req, res, next) {

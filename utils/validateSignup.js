@@ -1,7 +1,7 @@
-const pg = require("../utils/db");
+const pg = require("./db");
 
 // Checks email in database and retrives the password
-async function userInfo(req, res, next) {
+async function signUpUserInfo(req, res, next) {
   console.log("Checking User");
   const { lastName, firstName, email, password, language } = req.body;
   console.log(lastName, firstName, email, password, language);
@@ -27,4 +27,4 @@ async function userInfo(req, res, next) {
   next();
 }
 
-module.exports = { userInfo };
+module.exports = { signUpUserInfo };
