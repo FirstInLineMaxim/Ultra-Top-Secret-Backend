@@ -16,9 +16,9 @@ router
     if (valid) {
       const token = jwt.sign({ userId: user }, process.env.JWT_SECRET, {
       });
-      return res.json({ message: "Logged In", token: token });
+      return res.json({type:"success", message: "Logged In", token: token });
     }
-    res.json({ message: "Wrong Password!" });
+    res.json({type:"error", message: "Wrong Password!" });
   });
 
 module.exports = router;

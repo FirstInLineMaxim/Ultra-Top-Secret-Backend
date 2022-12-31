@@ -4,15 +4,15 @@ const pg = require("../utils/db");
 
 //middelware
 const { cryptPassword } = require("../utils/bcrypt");
-const {userInfo} = require('../utils/checkExsisting')
+const { userInfo } = require("../utils/checkExsisting");
 
 router
   .route("/")
   .get((req, res) => {
     res.json("Signup Placeholder");
   })
-  .post(userInfo,cryptPassword, async (req, res) => {
-    //Our information from the Signup page 
+  .post(userInfo, cryptPassword, async (req, res) => {
+    //Our information from the Signup page
     const {
       lastName,
       firstName,
@@ -36,8 +36,8 @@ router
       skills: skills,
     };
 
-    await pg("Users").insert(values)
-    res.status(201).json({message:"Account Created"})
+    await pg("Users").insert(values);
+    res.status(201).json({ type: "success", message: "Account Created" });
     res.end();
   })
   .delete(async (req, res) => {
