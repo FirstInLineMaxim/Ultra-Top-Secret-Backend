@@ -7,11 +7,6 @@ const cors = require("cors");
 const { accessHandler } = require("./utils/accessHandler");
 //Modules
 const LogRoute = require("./Controler/LogRoute");
-const {
-  logErrorMiddleware,
-  returnError,
-  logError,
-} = require("./Controler/ErrorHandler");
 
 //Route Handler
 const Home = require("./Routes/Home");
@@ -23,6 +18,7 @@ const Documents = require("./Routes/Documents");
 const Translation = require("./Routes/Translation");
 const Review = require("./Routes/Review");
 const Task = require("./Routes/Task");
+const Request = require("./Routes/Request");
 const File = require("./Routes/file");
 const UploadRouter = require("./Routes/UploadRouter");
 const cookieHandler = require("./Routes/cookieHandler");
@@ -32,6 +28,7 @@ app.set("view engine", "pug");
 
 //MiddleWares
 const authUser = require("./utils/authUser");
+const { errorHandler } = require("./Controler/ErrorHandler");
 
 //Handeling the OPTIONS Request
 app.options("/*", function (req, res, next) {
@@ -47,7 +44,7 @@ app.use(LogRoute);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(errorHandler);
 // app.use(logError)
 // app.use(returnError)
 
@@ -56,15 +53,16 @@ app.use(express.json());
 app.use("/", Home);
 app.use("/login", Login);
 app.use("/signup", Signup);
-app.use("/user", authUser, Users);
 app.use("/call", Call);
 app.use("/document", Documents);
 app.use("/translation", Translation);
 app.use("/review", Review);
 app.use("/task", Task);
 app.use("/file", File);
-app.use("/upload", authUser, UploadRouter);
 app.use("/setCookies", cookieHandler);
+app.use("/request", authUser, Request);
+app.use("/upload", authUser, UploadRouter);
+app.use("/user", authUser, Users);
 
 app.get("*", function (req, res) {
   res.status(404).render("404");

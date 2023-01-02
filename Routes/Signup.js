@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 const pg = require("../utils/db");
 
-//middelware
+// Middleware
 const { cryptPassword } = require("../utils/bcrypt");
 const { signUpUserInfo } = require("../utils/validateSignup");
+
+async function insertIntoDatabase(values) {
+  try {
+    await pg("Users").insert(values);
+  } catch (error) {
+    console.error(error);
+    throw new Error("An error occurred while inserting into the database.");
+  }
+}
 
 router
   .route("/")
@@ -12,7 +21,7 @@ router
     res.json("Signup Placeholder");
   })
   .post(signUpUserInfo, cryptPassword, async (req, res) => {
-    //Our information from the Signup page
+    // Our information from the Signup page
     const {
       lastName,
       firstName,
@@ -24,7 +33,7 @@ router
       skills,
       image,
     } = req.body;
-    //Values for the database
+    // Values for the database
     const values = {
       lastName: lastName,
       firstName: firstName,
@@ -36,9 +45,13 @@ router
       skills: skills,
     };
 
-    await pg("Users").insert(values);
-    res.status(201).json({ type: "success", message: "Account Created" });
-    res.end();
+    try {
+      await insertIntoDatabase(values);
+      res.status(201).json({ type: "success", message: "Account Created" });
+      res.end();
+    } catch (error) {
+      res.status(500).json({ type: "error", message: error.message });
+    }
   })
   .delete(async (req, res) => {
     const { id } = req.body;

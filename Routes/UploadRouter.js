@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     crypto.randomBytes(16, (error, buffer) => {
       if (error) {
-        cb(error, undefined);
+        console.error(error);
+        cb(null, undefined);
       } else {
         cb(null, buffer.toString("hex") + "-" + file.originalname);
       }
@@ -25,31 +26,52 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileUpload = multer({ storage });
+const fileUpload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB file size limit
+  fileFilter: (req, file, cb) => {
+    // Allow only image files
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      cb(null, false);
+      return;
+    }
+    cb(null, true);
+  },
+});
 
 router.post("/", fileUpload.single("image"), async (req, res) => {
-  console.log(req.user);
-  const userImage = await pg("Users").select("image").where("id", req.user);
-  //Looks up if a image is provided in the user if yes destroy the old one on claudinary
-  if (userImage[0].image !== null) {
-    const url = userImage[0].image;
-    const parts = url.split("/");
-    const public_id = `${parts[parts.length - 2]}/${
-      parts[parts.length - 1].split(".")[0]
-    }`;
-    destroy(public_id);
-  }
-  // waits for the upload to happen
-  const uploadResult = await upload(req.file.path);
-  //TODO: Push the UploadResult url to the database with connected to the user
-  await pg("Users").where("id", req.user).update({ image: uploadResult.url });
-  //Deletes the file from the server
-  fs.unlink(req.file.path, (error) => {
-    if (error) {
-      console.error(error);
+  try {
+    const userImage = await pg("Users").select("image").where("id", req.user);
+    //Looks up if a image is provided in the user if yes destroy the old one on claudinary
+    if (userImage[0].image !== null) {
+      const url = userImage[0].image;
+      const parts = url.split("/");
+      const public_id = `${parts[parts.length - 2]}/${
+        parts[parts.length - 1].split(".")[0]
+      }`;
+      destroy(public_id);
     }
-  });
-  res.send("File uploaded");
+    // waits for the upload to happen
+    const uploadResult = await upload(req.file.path);
+    //TODO: Push the UploadResult url to the database with connected to the user
+    await pg("Users").where("id", req.user).update({ image: uploadResult.url });
+    //Deletes the file from the server
+    fs.unlink(req.file.path, (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send({
+          error: "An error occurred while deleting the file from the server",
+        });
+      } else {
+        res.send("File uploaded");
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send({ error: "An error occurred while accessing the database" });
+  }
 });
 
 module.exports = router;

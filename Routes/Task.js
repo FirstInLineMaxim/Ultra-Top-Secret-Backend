@@ -6,24 +6,17 @@ const pg = require("../utils/db");
 router
   .route("/")
   .get((req, res) => {
-    res.send("Task Placeholder");
+    res.send("GET Task Placeholder");
   })
-  .post(authUser, async (req, res) => {
-    const { title, description, type, price, languages, user } = req.body;
-      const taskValues = {
-        title: title,
-        description: description,
-        type: type,
-        price: price,
-        languages: languages,
-        users_id: user,
-      };
-      await pg("Task").insert(taskValues);
-      res.json({ type: "info", message: "Succesfuly created." });
-    
+  .post((req, res) => {
+    res.send("POST Task Placeholder");
   })
-  .put((req, res) => {})
-  .delete((req, res) => {});
+  .put((req, res) => {
+    res.send("PUT Task Placeholder");
+  })
+  .delete((req, res) => {
+    res.send("DELETE Task Placeholder");
+  });
 
 router.route("/all").get(async (req, res) => {
   res.json(await pg.select("*").from("Task"));
