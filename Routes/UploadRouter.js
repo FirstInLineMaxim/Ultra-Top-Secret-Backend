@@ -44,7 +44,7 @@ router.post("/", fileUpload.single("image"), async (req, res) => {
   //TODO: Push the UploadResult url to the database with connected to the user
   await pg("Users").where("id", req.user).update({ image: uploadResult.url });
   //Deletes the file from the server
-  await fs.unlink(req.file.path, (error) => {
+  fs.unlink(req.file.path, (error) => {
     if (error) {
       console.error(error);
     }
