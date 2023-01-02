@@ -25,7 +25,7 @@ const Review = require("./Routes/Review");
 const Task = require("./Routes/Task");
 const File = require("./Routes/file");
 const UploadRouter = require("./Routes/UploadRouter");
-const cookieHandler = require('./Routes/cookieHandler')
+const cookieHandler = require("./Routes/cookieHandler");
 
 //ViewEngine for pug
 app.set("view engine", "pug");
@@ -63,12 +63,12 @@ app.use("/translation", Translation);
 app.use("/review", Review);
 app.use("/task", Task);
 app.use("/file", File);
-app.use("/upload", UploadRouter);
+app.use("/upload", authUser, UploadRouter);
 app.use("/setCookies", cookieHandler);
 
 app.get("*", function (req, res) {
   res.status(404).render("404");
-}); 
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port http://localhost:${process.env.PORT}`);
