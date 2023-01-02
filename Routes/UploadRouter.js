@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
 const fileUpload = multer({ storage });
 
 router.post("/", fileUpload.single("image"), async (req, res) => {
-  console.log(req.user);
   // waits for the upload to happen
   const uploadResult = await upload(req.file.path);
   //TODO: Push the UploadResult url to the database with connected to the user

@@ -17,7 +17,6 @@ router
     if (valid) {
       const token = jwt.sign({ userId: user }, process.env.JWT_SECRET, {});
       const userdata = await pg("Users").select("*").where("id", user);
-      console.log(userdata);
       return res.json({ type: "success", message: "Logged In", token: token ,user:userdata});
     }
     res.json({ type: "error", message: "Wrong Password!" });
