@@ -28,9 +28,10 @@ const storage = multer.diskStorage({
 const fileUpload = multer({ storage });
 
 router.post("/", fileUpload.single("image"), async (req, res) => {
+  console.log(req.user);
   const userImage = await pg("Users").select("image").where("id", req.user);
   //Looks up if a image is provided in the user if yes destroy the old one on claudinary
-  if (userImage[0]) {
+  if (userImage[0].image !== null) {
     const url = userImage[0].image;
     const parts = url.split("/");
     const public_id = `${parts[parts.length - 2]}/${
@@ -43,7 +44,7 @@ router.post("/", fileUpload.single("image"), async (req, res) => {
   //TODO: Push the UploadResult url to the database with connected to the user
   await pg("Users").where("id", req.user).update({ image: uploadResult.url });
   //Deletes the file from the server
-  fs.unlink(req.file.path, (error) => {
+  await fs.unlink(req.file.path, (error) => {
     if (error) {
       console.error(error);
     }
