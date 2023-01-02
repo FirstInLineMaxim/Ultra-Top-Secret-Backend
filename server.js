@@ -45,8 +45,6 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(errorHandler);
-// app.use(logError)
-// app.use(returnError)
 
 //Routes
 
@@ -60,6 +58,8 @@ app.use("/review", Review);
 app.use("/task", Task);
 app.use("/file", File);
 app.use("/setCookies", cookieHandler);
+
+//AuthRoutes
 app.use("/request", authUser, Request);
 app.use("/upload", authUser, UploadRouter);
 app.use("/user", authUser, Users);
