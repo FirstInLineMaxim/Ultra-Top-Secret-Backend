@@ -47,7 +47,7 @@ router
         });
       }
     }
-    res.json({ type: "error", message: "Wrong Password!" });
+    res.status(400).json({ type: "error", message: "Wrong Password!" });
   });
 
 module.exports = router;

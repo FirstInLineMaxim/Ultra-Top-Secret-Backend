@@ -9,8 +9,17 @@ router
     res.send("Task Placeholder");
   })
   .post(async (req, res) => {
-  const { title, description, type, price, languages, user } = req.body;
+    const { user } = req;
+    const { title, description, type, price, languages } = req.body;
+    if (!title || !description || !type || !price || !languages || !user) {
+      return res.status(400).json({
+        type: "error",
+        message: "You need to fill out all the Information",
+      });
+    }
+    try {
       const taskValues = {
+        active: active,
         title: title,
         description: description,
         type: type,
@@ -19,8 +28,10 @@ router
         users_id: user,
       };
       await pg("Task").insert(taskValues);
-      res.json({ type: "info", message: "Succesfuly created." });
-    
+      res.json({ type: "success", message: "Succesfuly created." });
+    } catch (error) {
+      res.status(400).json({ type: "error", message: "Something went wrong!" });
+    }
   })
   .put((req, res) => {})
   .delete((req, res) => {});
