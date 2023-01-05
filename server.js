@@ -55,11 +55,11 @@ app.use("/call", Call);
 app.use("/document", Documents);
 app.use("/translation", Translation);
 app.use("/review", Review);
-app.use("/task", Task);
 app.use("/file", File);
 app.use("/setCookies", cookieHandler);
 
 //AuthRoutes
+app.use("/task", authUser, Task);
 app.use("/request", authUser, Request);
 app.use("/upload", authUser, UploadRouter);
 app.use("/user", authUser, Users);
