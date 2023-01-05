@@ -59,4 +59,9 @@ router
 router.route("/all").get(async (req, res) => {
   res.json(await pg.select("*").from("Task"));
 });
+//TODO:get request for user specific language requests
+router.route("/all/:language").get(async (req, res) => {
+  const { language } = req.params;
+  res.json(await pg.select("*").from("requests").where("fromLanguage",`{${language}}` ));
+});
 module.exports = router;
