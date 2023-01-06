@@ -22,7 +22,7 @@ const Request = require("./Routes/Request");
 const File = require("./Routes/file");
 const UploadRouter = require("./Routes/UploadRouter");
 const cookieHandler = require("./Routes/cookieHandler");
-
+const Api = require("./Routes/Api/Api");
 //ViewEngine for pug
 app.set("view engine", "pug");
 
@@ -57,7 +57,7 @@ app.use("/translation", Translation);
 app.use("/review", Review);
 app.use("/file", File);
 app.use("/setCookies", cookieHandler);
-app.use("/api")
+app.use("/api", Api);
 //AuthRoutes
 app.use("/task", authUser, Task);
 app.use("/request", authUser, Request);
