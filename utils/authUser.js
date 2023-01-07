@@ -22,7 +22,7 @@ function authUser(req, res, next) {
       return res.status(401).send({ error: "Invalid JWT" });
     }
     return res
-      .status(400)
+      .status(400             )
       .send({ error: "An error occurred while parsing the JWT" });
   }
 }
