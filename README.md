@@ -32,10 +32,6 @@ User profile:
 | `/`              | Home                 | Public `<Route>`           | Home page                                                    |
 | `/signup`        | SignupPage           | Public `<Route>`           | Sign up form, link to login, navigate to homepage after signup |
 | `/signup`        | LoginPage            | anon only `<AnonRoute>`   | Login form, link to signup, navigate to homepage after login  |
-| `/exitpoint`     | TournamentListPage   | user only `<PrivateRoute>` | Shows all exit points in a list                              |
-| `/exitpoint/add` | TournamentListPage   | user only `<PrivateRoute>` | Edits a exit points                                          |
-| `/exitpoint/:id` | TournamentDetailPage | user only `<PrivateRoute>` | Details of a exit points to edit                             |
-| `/exitpoint/:id` | n/a                  | user only `<PrivateRoute>` | Delete exit Task                                           |
 |`/Task/`|
 |`/Task/all`|
 
@@ -98,7 +94,6 @@ Exit model
 
 ------------------------------------------------------------ |
 |`/login`     | POST |{ email, password}| 200 | 400 | Checks if User Provided valid[email,password]contacts the DB and return User info on success & JWTToken
-
 
 ## Links
 
