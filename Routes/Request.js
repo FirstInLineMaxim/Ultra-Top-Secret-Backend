@@ -1,5 +1,4 @@
 const express = require("express");
-const authUser = require("../utils/authUser");
 const router = express.Router();
 const pg = require("../utils/db");
 
@@ -57,11 +56,37 @@ router
   .delete((req, res) => {});
 
 router.route("/all").get(async (req, res) => {
-  res.json(await pg.select("*").from("Task"));
+  try {
+    const result = await pg.select("*").from("requests");
+    res.json(result);
+  } catch (error) {
+    res.json({ type: "error", message: "Something went wrong!" });
+  }
 });
 //TODO:get request for user specific language requests
-router.route("/all/:language").get(async (req, res) => {
+router.route("/all/from/:language").get(async (req, res) => {
   const { language } = req.params;
-  res.json(await pg.select("*").from("requests").where("fromLanguage",`{${language}}` ));
+  try {
+    const result = await pg
+      .select("*")
+      .from("requests")
+      .where("fromLanguage", `{${language}}`);
+    res.json(result);
+  } catch (error) {
+    res.json({ type: "error", message: "Something went wrong!" });
+  }
+});
+router.route("/all/to/:language").get(async (req, res) => {
+  const { language } = req.params;
+  try {
+    const result = await pg
+      .select("*")
+      .from("requests")
+      .where("toLanguage", `{${language}}`);
+
+    res.json(result);
+  } catch (error) {
+    res.json({ type: "error", message: "Something went wrong!" });
+  }
 });
 module.exports = router;

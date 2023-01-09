@@ -57,7 +57,10 @@ app.use("/translation", Translation);
 app.use("/review", Review);
 app.use("/file", File);
 app.use("/setCookies", cookieHandler);
+
+//API ROUTES FOR FETCHING DATA
 app.use("/api", Api);
+
 //AuthRoutes
 app.use("/task", authUser, Task);
 app.use("/request", authUser, Request);

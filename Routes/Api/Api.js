@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pg = require("../../utils/db");
+const api_Task = require("./api_Task");
+const api_Category = require("./api_Category");
+const api_Language = require("./api_Language");
+//Routes
+router.use("/task", api_Task);
+router.use("/category", api_Category);
+router.use("/language", api_Language);
 
-router.route("/task/all").get(async (req, res) => {
-  res.json(await pg.select("*").from("Task"));
-});
 module.exports = router;
