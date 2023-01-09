@@ -19,4 +19,23 @@ router
     return;
   });
 
+//GETS Task from User
+router
+  .route("/task")
+  //Returns Specific user
+  .get(async (req, res) => {
+    const { user } = req;
+    if (user)
+      try {
+        const result = await pg("Task").select("*").where("users_id", user);
+        return res.json(result);
+      } catch (error) {
+        res.json({
+          type: "error",
+          message: "Something went wrong with the Querry!",
+        });
+      }
+    return res.status(401).json({ type: "erro", message: "Missing User!" });
+  });
+
 module.exports = router;
