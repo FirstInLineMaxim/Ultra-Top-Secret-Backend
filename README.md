@@ -89,10 +89,8 @@ Exit model
 
 ## Backend routes
 
-|    URL     | HTTP Method            | Request Body                                                 | Success status | Error Status | Description                                                  |
-| ----------- | -------------- | ------------------------------------------------------------ | -------------- | ------------ |
-
------------------------------------------------------------- |
+|    URL     | HTTP Method   | Request Body | Success status | Error Status | Description|
+| ----------- | -------------- | ------------ | -------------- | ------------ |----- |
 |`/login`     | POST |{ email, password}| 200 | 400 | Checks if User Provided valid[email,password]contacts the DB and return User info on success & JWTToken
 
 ## Links
