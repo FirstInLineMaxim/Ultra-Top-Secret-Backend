@@ -4,18 +4,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { accessHandler } = require("./utils/accessHandler");
 //Modules
 const LogRoute = require("./Controler/LogRoute");
 
 //Route Handler
-const Home = require("./Routes/Home");
 const Login = require("./Routes/Login");
 const Signup = require("./Routes/Signup");
 const Users = require("./Routes/Users");
-const Call = require("./Routes/Call");
-const Documents = require("./Routes/Documents");
-const Translation = require("./Routes/Translation");
 const Review = require("./Routes/Review");
 const Task = require("./Routes/Task");
 const Request = require("./Routes/Request");
@@ -48,15 +43,12 @@ app.use(express.json());
 
 //Routes
 
-app.use("/", Home);
 app.use("/login", Login);
 app.use("/signup", Signup);
-app.use("/call", Call);
-app.use("/document", Documents);
-app.use("/translation", Translation);
+
 app.use("/review", Review);
 app.use("/file", File);
-app.use("/setCookies", cookieHandler);
+// app.use("/setCookies", cookieHandler);
 
 //API ROUTES FOR FETCHING DATA
 app.use("/api", Api);
