@@ -38,4 +38,5 @@ router
     return res.status(401).json({ type: "erro", message: "Missing User!" });
   });
 
+
 module.exports = router;

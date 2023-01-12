@@ -18,7 +18,7 @@ router
     res.send("DELETE Task Placeholder");
   });
 
-  router
+router
   .route("/create")
   .get((req, res) => {
     res.send("Task Placeholder");
@@ -34,7 +34,7 @@ router
     }
     try {
       const taskValues = {
-        active: active,
+        active: true,
         title: title,
         description: description,
         type: type,
@@ -42,6 +42,7 @@ router
         languages: languages,
         users_id: user,
       };
+      console.log(taskValues);
       await pg("Task").insert(taskValues);
       res.json({ type: "success", message: "Succesfuly created." });
     } catch (error) {
@@ -53,5 +54,32 @@ router
 
 router.route("/all").get(async (req, res) => {
   res.json(await pg.select("*").from("Task"));
+});
+
+//Gets user Specific Accepted Task
+router.route("/accepted").get(async (req, res) => {
+  const { user } = req;
+  console.log(user);
+  const result = await pg
+    .select(
+      "Accepted.details",
+      "Accepted.time",
+      "Accepted.status",
+      "Task.title",
+      "Task.description",
+      "Task.type",
+      "Task.languages as task_languages",
+      "Users.lastName",
+      "Users.firstName",
+      "Users.email",
+      "Users.phonenumber",
+      "Users.languages as user_language",
+      "Users.image"
+    )
+    .from("Accepted")
+    .innerJoin("Task", "Task.id", "Accepted.task_id")
+    .innerJoin("Users", "Users.id", "Accepted.user_id")
+    .where({ "Task.users_id": user });
+  res.json(result);
 });
 module.exports = router;
