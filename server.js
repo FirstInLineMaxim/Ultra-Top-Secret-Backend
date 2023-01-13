@@ -41,7 +41,6 @@ app.options("/*", function (req, res, next) {
   res.sendStatus(200);
 });
 
-// app.use(errorHandler);
 
 //Routes
 
@@ -50,7 +49,6 @@ app.use("/signup", Signup);
 
 app.use("/review", Review);
 app.use("/file", File);
-// app.use("/setCookies", cookieHandler);
 
 //API ROUTES FOR FETCHING DATA
 app.use("/api", Api);
