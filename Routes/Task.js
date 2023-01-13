@@ -32,18 +32,8 @@ router
         message: "You need to fill out all the Information",
       });
     }
-    const taskValues = {
-      active: true,
-      title: title,
-      description: description,
-      type: type,
-      price: price,
-      languages: languages,
-      users_id: user,
-    };
     try {
-      console.log(taskValues);
-      await pg("Task").insert({
+      const taskValues = {
         active: true,
         title: title,
         description: description,
@@ -51,7 +41,9 @@ router
         price: price,
         languages: languages,
         users_id: user,
-      });
+      };
+      console.log(taskValues);
+      await pg("Task").insert(taskValues);
       res.json({ type: "success", message: "Succesfuly created." });
     } catch (error) {
       console.log(error);
