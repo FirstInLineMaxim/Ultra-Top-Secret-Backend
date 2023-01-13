@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pg = require("../utils/db");
+const Chat = require("./Chats");
 
 router
   .route("/")
@@ -17,6 +18,18 @@ router
     const { user } = req;
     if (user) return res.json(await pg("Users").select("*").where("id", user));
     return;
+  })
+  .put(async (req, res) => {
+    const { body } = req;
+    const { user } = req;
+    console.log(req.body);
+    console.log(user);
+    res.send("Allright");
+    try {
+      // const result = await pg("Users")
+      //   .where("id", req.user)
+      //   .update({ ...body });
+    } catch (error) {}
   });
 
 //GETS Task from User
@@ -38,5 +51,7 @@ router
     return res.status(401).json({ type: "erro", message: "Missing User!" });
   });
 
+//TODO:Chat logic and all that
+router.use("/chat", Chat);
 
 module.exports = router;

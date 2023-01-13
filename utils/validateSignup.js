@@ -13,10 +13,10 @@ async function checkIfEmailExists(email) {
 // Checks email in database and retrieves the password
 async function signUpUserInfo(req, res, next) {
   console.log("Checking User");
-  const { lastName, firstName, email, password, language } = req.body;
-  console.log(lastName, firstName, email, password, language);
+  const { lastname, firstname, email, password, language } = req.body;
+  console.log(lastname, firstname, email, password, language);
   // Checks if all Values are Provided
-  if (!email || !password || !lastName || !firstName || !language)
+  if (!email || !password || !lastname || !firstname || !language)
     return res.status(400).json({
       type: "info",
       message: "You need to Provide all the Information",

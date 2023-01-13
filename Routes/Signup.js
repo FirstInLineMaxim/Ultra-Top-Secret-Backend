@@ -23,8 +23,8 @@ router
   .post(signUpUserInfo, cryptPassword, async (req, res) => {
     // Our information from the Signup page
     const {
-      lastName,
-      firstName,
+      lastname,
+      firstname,
       email,
       password,
       address,
@@ -35,8 +35,8 @@ router
     } = req.body;
     // Values for the database
     const values = {
-      lastName: lastName,
-      firstName: firstName,
+      lastname: lastname,
+      firstname: firstname,
       email: email,
       password: password,
       address: address,

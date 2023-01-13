@@ -59,7 +59,6 @@ router.route("/all").get(async (req, res) => {
 //Gets user Specific Accepted Task
 router.route("/accepted").get(async (req, res) => {
   const { user } = req;
-  console.log(user);
   const result = await pg
     .select(
       "Accepted.details",
@@ -69,8 +68,8 @@ router.route("/accepted").get(async (req, res) => {
       "Task.description",
       "Task.type",
       "Task.languages as task_languages",
-      "Users.lastName",
-      "Users.firstName",
+      "Users.lastname",
+      "Users.firstname",
       "Users.email",
       "Users.phonenumber",
       "Users.languages as user_language",
