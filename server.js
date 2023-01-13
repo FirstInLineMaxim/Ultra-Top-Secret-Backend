@@ -25,6 +25,11 @@ app.set("view engine", "pug");
 const authUser = require("./utils/authUser");
 const { errorHandler } = require("./Controler/ErrorHandler");
 
+app.use(LogRoute);
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //Handeling the OPTIONS Request
 app.options("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -35,10 +40,7 @@ app.options("/*", function (req, res, next) {
   );
   res.sendStatus(200);
 });
-app.use(LogRoute);
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 // app.use(errorHandler);
 
 //Routes
