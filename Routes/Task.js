@@ -46,13 +46,12 @@ router
       await pg("Task").insert(taskValues);
       res.json({ type: "success", message: "Succesfuly created." });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          type: "error",
-          message: "Something went wrong!",
-          error: error,
-        });
+      console.log(error);
+      res.status(400).json({
+        type: "error",
+        message: "Something went wrong!",
+        error: error,
+      });
     }
   })
   .put((req, res) => {})
