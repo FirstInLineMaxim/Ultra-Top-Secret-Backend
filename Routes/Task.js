@@ -32,6 +32,7 @@ router
         message: "You need to fill out all the Information",
       });
     }
+    const formedLanguages = languages.match(/\w+/g);
     try {
       const taskValues = {
         active: true,
@@ -39,7 +40,7 @@ router
         description: description,
         type: type,
         price: price,
-        languages: languages,
+        languages: formedLanguages,
         users_id: user,
       };
       console.log(taskValues);
