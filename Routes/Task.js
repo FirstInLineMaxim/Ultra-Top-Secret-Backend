@@ -86,4 +86,28 @@ router.route("/accepted").get(async (req, res) => {
     .where({ "Task.users_id": user });
   res.json(result);
 });
+router.route("/accepted/:task_id").post(async (req, res) => {
+  const { task_id } = req.params;
+  const { user } = req;
+  const insertValues = {
+    user_id: user,
+    task_id: task_id,
+    details: "Just a test here",
+    time: time,
+  };
+  try {
+    const [{ firstname }] = await pg("Task")
+      .select("Users.firstname")
+      .innerJoin("Users", "Users.id", "Task.users_id")
+      .where("Task.id", task_id);
+    console.log(firstname);
+    const insert = await pg("Accepted").insert(insertValues);
+    res.json({
+      type: "succes",
+      message: `Succesful You may Contact ${firstname} via Dashboard/Messages`,
+    });
+  } catch (error) {
+    res.json({ type: "error", message: "Something went Wrong!" });
+  }
+});
 module.exports = router;
