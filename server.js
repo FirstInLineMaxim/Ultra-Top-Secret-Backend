@@ -25,6 +25,7 @@ app.set("view engine", "pug");
 //MiddleWares
 const authUser = require("./utils/authUser");
 const { errorHandler } = require("./Controler/ErrorHandler");
+const pg = require("./utils/db");
 
 app.use(LogRoute);
 app.use(cors());
@@ -67,18 +68,27 @@ app.get("*", function (req, res) {
 // STRIPE TEST
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
-const storeItems = new Map([
-  [1, { priceInCents: 10000, name: "Translator" }], 
-])
-
 app.post("/create-checkout-session", async (req, res) => {
+  const removeDollar = (price) => {
+    return Math.round(parseFloat(price.replace(/[^0-9.-]+/g, ""))) * 100;
+  };
   const { items, card } = req.body;
+  const all = await pg("Task").select("*").where("id", items[0].id);
+  console.log(removeDollar(all[0].price));
+  const storeItems = new Map([
+    [
+      items[0].id,
+      { priceInCents: removeDollar(all[0].price), name: all[0].title },
+    ],
+  ]);
+  console.log(all);
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: req.body.items.map((item) => {
         const storeItem = storeItems.get(item.id);
+        console.log(storeItem);
         return {
           price_data: {
             currency: "usd",
