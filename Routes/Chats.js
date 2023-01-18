@@ -74,7 +74,7 @@ router.route("/new/message/:chat_id").post(async (req, res) => {
       text: message,
       created_by: user,
     });
-    res.status(201).json({ message: "Chat and messages created successfully" });
+    res.status(201).json({ type: "success", message: "messages send!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error creating chat and messages" });
