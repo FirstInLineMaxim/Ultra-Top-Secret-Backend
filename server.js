@@ -68,9 +68,7 @@ app.get("*", function (req, res) {
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 const storeItems = new Map([
-  [1, { priceInCents: 10000, name: "Translator" }],
-  [2, { priceInCents: 25000, name: "Translator" }],
- 
+  [1, { priceInCents: 10000, name: "Translator" }], 
 ])
 
 app.post("/create-checkout-session", async (req, res) => {
