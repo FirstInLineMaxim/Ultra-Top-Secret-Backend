@@ -89,9 +89,13 @@ router.route("/accepted").get(async (req, res) => {
 });
 router.route("/accepted/:task_id").post(async (req, res) => {
   const { details, time, date } = req.body;
-  console.log({ details, time, date });
   const { task_id } = req.params;
   const { user } = req;
+  if (!details || !time || !date || !task_id || !user)
+    return res.json({
+      type: "error",
+      message: "you need to Provide all the Information",
+    });
   const insertValues = {
     user_id: user,
     task_id: task_id,
