@@ -13,10 +13,11 @@ async function loginUserInfo(req, res, next) {
     .where("email", email)
     .select("password", "id")
     .catch((err) => console.log(err));
-  if (result.length === 0)
-    return res
-      .status(400)
-      .json({ type: "info", message: "Invalid email or password" });
+  if (result)
+    if (result.length === 0)
+      return res
+        .status(400)
+        .json({ type: "info", message: "Invalid email or password" });
   const { password, id } = result[0];
   req.body.user = id;
   req.body.hash = password;

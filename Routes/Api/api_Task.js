@@ -17,7 +17,18 @@ router.route("/all").get(async (req, res) => {
   ];
   res.json(
     await pg
-      .select("Task.*", UsersSelect)
+      .select(
+        "Task.*",
+        "role",
+        "lastname",
+        "firstname",
+        "address",
+        "email",
+        "phonenumber",
+        "skills",
+        "image",
+        "Users.languages as user_language"
+      )
       .from("Task")
       .innerJoin("Users", "Users.id", "Task.users_id")
   );

@@ -51,7 +51,4 @@ router
     return res.status(401).json({ type: "erro", message: "Missing User!" });
   });
 
-//TODO:Chat logic and all that
-router.use("/chat", Chat);
-
 module.exports = router;
